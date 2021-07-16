@@ -20,10 +20,15 @@
   <!-- Theme CSS -->
   <link href="css/freelancer.css" rel="stylesheet">
 
+  <!-- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui@3.0.0-rc.0/dist/css/coreui.min.css"> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9&#43;4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@coreui/coreui@3.0.0-rc.0/dist/js/coreui.min.js"></script>
+
+
 </head>
 
 <body id="page-top">
-
+<div id="app">
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
@@ -43,7 +48,12 @@
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contacto</a>
           </li>
-        </ul>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link left py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Buy 
+              <span class="badge badge-pill badge-danger">{{contador}}</span>
+            </a>
+          </li>
+         </ul>
       </div>
     </div>
   </nav>
@@ -91,7 +101,7 @@
       </div>
 
       <!-- Portfolio Grid Items -->
-      <div class="row">
+      <div class="row col-lg-12">
 
         <!-- Portfolio Item 1 -->
         <div class="col-md-6 col-lg-4">
@@ -201,6 +211,18 @@
           </div>
         </div>
 
+        <div id="listado">
+          <div class="col-md-6 col-lg-4"  v-for="(value, key) in productos">
+            <div class="portfolio-item mx-auto" data-toggle="modal" :data-target="'#'+value.numero">
+              <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                <div class="portfolio-item-caption-content text-center text-white">
+                  <i class="fas fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" :src="value.url" btn-dark alt="">
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.row -->
 
@@ -707,27 +729,154 @@
     </div>
   </div>
 
+  
+<div id="listado1">
+  <div class="portfolio-modal modal fade" :id=value.numero tabindex="-1" role="dialog" aria-labelledby="portfolioModal9Label" aria-hidden="true" v-for="(value) of productos" :key="value.id">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </span>
+        </button>
+        <div class="modal-body text-center">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <!-- Portfolio Modal - Title -->
+                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{value.nombre}}</h2>
+                <!-- Icon Divider -->
+                <div class="divider-custom">
+                  <div class="divider-custom-line"></div>
+                  <div class="divider-custom-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Modal - Image -->
+                <img class="img-fluid rounded mb-5" :src=value.url alt="">
+                <!-- Portfolio Modal - Text -->
+                {{value.precio}}
+                <p class="mb-5"> {{value}} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                <button class="btn btn-primary" v-bind:seleccionado="value" @click="agregar(value);">Agregar a Compra</button>
+                <button class="btn btn-primary" href="#" data-dismiss="modal">
+                  <i class="fas fa-times fa-fw"></i>
+                  Close Window
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="btn-whatsapp">
     <a href="https://wa.me/541166665555?texto=Quisiera%20consultar%20sobre%20la%20oferta%20de%20departamento" target="_blank">
     <img src="http://s2.accesoperu.com/logos/btn_whatsapp.png" alt="">
     </a>
   </div>
+</div>
 
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Contact Form JavaScript -->
-  <script src="js/jqBootstrapValidation.js"></script>
-  <script src="js/contact_me.js"></script>
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
 
-  <!-- Custom scripts for this template -->
-  <script src="js/freelancer.min.js"></script>
-  <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/freelancer.min.js"></script>
+<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+
+
+  
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+    const listaActividadesUI = document.getElementById('listado');
+  console.log(listaActividadesUI)
+  listaActividadesUI.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    console.log(e)
+    console.log(e.target.innerHTML);
+    console.log(e.path[5].childNodes[0].innerHTML)
+    // if(e.target.innerHTML === 'delete' || e.target.innerHTML === 'done' ){
+    //     let seleccion = e.path[2].childNodes[3].innerHTML;
+    //     if(e.target.innerHTML === 'delete'){
+    //         EliminarDB(seleccion);
+    //     }
+    //     if(e.target.innerHTML === 'done'){
+    //         EditarDB(seleccion);
+    //     }
+    // }
+})
+});
+
+  const app = new Vue({  // Instancia de Vue
+          el: '#app', // ID del contenedor
+          data: {
+              mensaje: 'Hola L',
+              contador: 0,
+              comprar: [],
+              seleccionado: [],
+              item:{
+                numero: '1',
+                nombre: 'Prueba 1',
+                url: 'img/portfolio/circus1.png',
+                precio: '1'
+              },
+              productos: [{
+                numero: 'folio2',
+                nombre: 'Prueba 2',
+                url: 'img/portfolio/circus1.png',
+                precio: '2'
+              },{
+                numero: 'folio3',
+                nombre: 'Prueba 3',
+                url: 'img/portfolio/circus1.png',
+                precio: '3'
+              },{
+                numero: 'folio4',
+                nombre: 'Prueba 4',
+                url: 'img/portfolio/circus1.png',
+                precio: '4'
+              }]
+            
+          },
+          methods:{
+            
+          },
+          computed: {
+              invertido(){
+                  return this.mensaje.split('').reverse().join('');
+              },
+              color(){
+                  return {
+                      'bg-success': this.contador <= 10,
+                      'bg-warning': this.contador > 10 && this.contador <20,
+                      'bg-danger': this.contador >= 20,
+                  }
+              },
+              agregar(value1,value2){
+                debugger
+                this.comprar.push(value);
+                this.contador = this.comprar.length
+              }
+             
+          }
+      });
+  
+  </script>
 </body>
-
 </html>
